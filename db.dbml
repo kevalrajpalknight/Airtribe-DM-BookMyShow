@@ -1,0 +1,70 @@
+Enum Language{
+  "hindi"
+  "english"
+  "urdu"
+  "tamil"
+  "telugu"
+  "gujrati"
+  "kannada"
+  "marathi"
+  "malayalam"
+  "bengali"
+  "punjabi"
+  "multi-language"
+}
+
+Table MovieLanguage{
+  movie bigint [not null, ref: > Movie.id]
+  language Language [not null]
+}
+
+Enum Genre{
+  "drama"
+  "comedy"
+  "action"
+  "thriller"
+  "sci-fi"
+  "animation"
+  "biography"
+  "classic"
+  "crime"
+  "family"
+  "mystery"
+  "period"
+  "supernatural"
+  "political"
+}
+
+Table MovieGenre{
+  movie bigint [not null, ref: > Movie.id]
+  genre Genre [not null]
+}
+
+Table Movie{
+  id bigint [primary key, increment]
+  title varchar2(150) [not null]
+  duration tinyint [note: "(in minutes)"]
+}
+
+Table Address{
+  id bigint [primary key, increment]
+  city varchar2(150) [not null]
+  state varchar2(150) [not null]
+  latitude float
+  longitude float
+}
+
+Table Theater{
+  id bigint [primary key, increment]
+  name varchar2(255) [not null]
+  location bigint [ref: - Address.id]
+}
+
+Table Show{
+  id bigint [primary key, increment]
+  movie bigint [not null, ref: > Movie.id]
+  theatre bigint [not null, ref: > Theater.id]
+  date date [not null]
+  showtime time [not null]
+  available_seats integer [not null]
+}
